@@ -1,4 +1,4 @@
-export type TEventListener<TEvent = any> = (event: TEvent) => void;
+export type TEventListener<TEvent = unknown> = (event: TEvent) => void;
 
 export default class EventListeners<TEventType extends string, TEvent> {
   #listeners = new Map<TEventType, Set<TEventListener<TEvent>>>();
@@ -17,7 +17,7 @@ export default class EventListeners<TEventType extends string, TEvent> {
   }
 
   remove(type: TEventType, listener: TEventListener<TEvent>) {
-    let listeners = this.#listeners.get(type);
+    const listeners = this.#listeners.get(type);
     if (listeners) {
       listeners.delete(listener);
       if (listeners.size == 0) {

@@ -3,6 +3,7 @@ export class ChessCoordinates {
   #x = 0;
   #y = 0;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
   static fromIndexes(x: number, y: number) {
