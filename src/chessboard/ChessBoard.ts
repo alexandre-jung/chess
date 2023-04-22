@@ -1,12 +1,12 @@
-import ChessSquare from './ChessSquare';
-import ChessCoordinates from './ChessCoordinates';
-import ChessPiecePool from './ChessPiecePool';
-import ChessPieceFactory from './ChessPieceFactory';
-import ChessPiece from './ChessPiece';
+import { ChessSquare } from './ChessSquare';
+import { ChessCoordinates } from './ChessCoordinates';
+import { ChessPiecePool } from './ChessPiecePool';
+import { ChessPieceFactory } from './ChessPieceFactory';
+import { ChessPiece } from './ChessPiece';
 import { ChessDragAndDropData } from './ChessDragAndDropData';
-import { ChessBoardActor } from './history/interfaces';
+import { ChessBoardActor } from '../history/interfaces';
 
-export default class ChessBoard implements ChessBoardActor {
+export class ChessBoard implements ChessBoardActor {
   readonly #board: ChessSquare[][];
   readonly #element: HTMLDivElement;
   readonly #pool = new ChessPiecePool();

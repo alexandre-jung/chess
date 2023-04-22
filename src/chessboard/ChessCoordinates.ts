@@ -1,4 +1,4 @@
-export default class ChessCoordinates {
+export class ChessCoordinates {
   // Indexes.
   #x = 0;
   #y = 0;

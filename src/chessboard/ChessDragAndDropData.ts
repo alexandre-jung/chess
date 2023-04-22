@@ -1,4 +1,4 @@
-import { Color, Piece } from './types';
+import { Color, Piece } from '../types';
 
 export type ChessDragAndDropDataObject = {
   id: string

@@ -1,9 +1,9 @@
-import { Color } from './types';
-import ChessDropZone from './ChessDropZone';
-import ChessCoordinates from './ChessCoordinates';
-import ChessPiece from './ChessPiece';
+import { Color } from '../types';
+import { ChessDropZone } from './ChessDropZone';
+import { ChessCoordinates } from './ChessCoordinates';
+import { ChessPiece } from './ChessPiece';
 
-export default class ChessSquare {
+export class ChessSquare {
   readonly #dropZone: ChessDropZone;
   readonly #coordinates: ChessCoordinates;
   #piece: ChessPiece | null = null;

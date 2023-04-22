@@ -1,9 +1,6 @@
 import './style.css';
 
-import ChessBoard from './ChessBoard';
-import ChessPiecePicker from './ChessPiecePicker';
-import ChessPieceFactory from './ChessPieceFactory';
-import ChessCoordinates from './ChessCoordinates';
+import { ChessBoard, ChessCoordinates, ChessPieceFactory, ChessPiecePicker } from './chessboard';
 import { ChessHistory, MoveCommand } from './history';
 
 const app = document.querySelector('#app');

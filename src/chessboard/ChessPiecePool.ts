@@ -1,6 +1,6 @@
-import ChessPiece from './ChessPiece';
+import { ChessPiece } from './ChessPiece';
 
-export default class ChessPiecePool {
+export class ChessPiecePool {
   #pieces = new Map<string, ChessPiece>();
 
   add (piece: ChessPiece) {

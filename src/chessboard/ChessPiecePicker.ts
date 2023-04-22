@@ -1,8 +1,8 @@
-import { Color } from './types';
-import ChessPieceFactory from './ChessPieceFactory';
-import { PIECES } from './constants';
+import { Color } from '../types';
+import { ChessPieceFactory } from './ChessPieceFactory';
+import { PIECES } from '../constants';
 
-export default class ChessPiecePicker {
+export class ChessPiecePicker {
   #element = document.createElement('div');
   #color: Color;
   #factory = new ChessPieceFactory(50);

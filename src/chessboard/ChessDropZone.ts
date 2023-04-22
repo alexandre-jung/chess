@@ -1,5 +1,5 @@
 import { ChessDragAndDropData } from './ChessDragAndDropData';
-import EventListeners from './EventListeners';
+import EventListeners from '../EventListeners';
 
 type ChessDropZoneEventType = 'drop'
 type ChessDropZoneEvent = ChessDragAndDropData | string
@@ -8,7 +8,7 @@ type ChessDropZoneEventListener<Data extends ChessDropZoneEvent = any> = (event:
 /**
  * An unstyled div that supports chess piece dropping.
  */
-export default class ChessDropZone {
+export class ChessDropZone {
   #element = document.createElement('div');
   #listeners = new EventListeners<ChessDropZoneEventType, ChessDropZoneEvent>();
 

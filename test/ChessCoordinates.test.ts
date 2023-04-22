@@ -1,4 +1,4 @@
-import ChessCoordinates from '../src/ChessCoordinates';
+import { ChessCoordinates } from '../src/chessboard';
 
 describe('ChessCoordinates', function () {
   describe('to string', function () {

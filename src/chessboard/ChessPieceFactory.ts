@@ -1,7 +1,7 @@
-import ChessPiece from './ChessPiece';
-import { Color, Piece } from './types';
+import { ChessPiece } from './ChessPiece';
+import { Color, Piece } from '../types';
 
-export default class ChessPieceFactory {
+export class ChessPieceFactory {
   private readonly pieceSize: number;
 
   constructor (pieceSize: number) {

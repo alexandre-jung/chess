@@ -1,4 +1,4 @@
-import ChessCoordinates from '../ChessCoordinates';
+import { ChessCoordinates } from '../chessboard';
 
 export interface ChessBoardActor {
   move (from: ChessCoordinates, to: ChessCoordinates): void;

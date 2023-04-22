@@ -1,6 +1,6 @@
-import { Color, Piece } from './types';
+import { Color, Piece } from '../types';
 import { ChessDragAndDropData } from './ChessDragAndDropData';
-import ChessCoordinates from './ChessCoordinates';
+import { ChessCoordinates } from './ChessCoordinates';
 
 type Parent = {
   piece: ChessPiece | null
@@ -10,7 +10,7 @@ type Parent = {
 /**
  * A draggable chess piece.
  */
-export default class ChessPiece {
+export class ChessPiece {
   readonly #color: Color;
   readonly #name: Piece;
   readonly #element: HTMLImageElement;

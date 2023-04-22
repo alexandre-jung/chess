@@ -1,5 +1,5 @@
 import { ChessBoardActor, Command } from './interfaces';
-import ChessCoordinates from '../ChessCoordinates';
+import { ChessCoordinates } from '../chessboard';
 
 export class MoveCommand implements Command {
   private readonly from: ChessCoordinates;
