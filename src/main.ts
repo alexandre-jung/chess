@@ -4,6 +4,7 @@ import ChessBoard from './ChessBoard';
 import ChessPiecePicker from './ChessPiecePicker';
 import ChessPieceFactory from './ChessPieceFactory';
 import ChessCoordinates from './ChessCoordinates';
+import { ChessHistory, MoveCommand } from './history';
 
 const app = document.querySelector('#app');
 if (!app) throw new Error('#app not found');
@@ -59,7 +60,40 @@ for (const placement of initialPlacement) {
   chessboard.setPiece(piece, target);
 }
 
-// chessboard.move(
-//   ChessCoordinates.fromString('d2'),
-//   ChessCoordinates.fromString('d4'),
-// );
+const moves = [
+  ['d2', 'd4'],
+  ['d1', 'd3'],
+  ['c1', 'f4'],
+  ['g1', 'f3'],
+];
+
+const history = new ChessHistory();
+
+moves.forEach(([from, to]) => {
+  history.push(new MoveCommand(
+    ChessCoordinates.fromString(from),
+    ChessCoordinates.fromString(to),
+  ));
+});
+
+history.getAll().forEach(command => command.execute(chessboard));
+
+document.addEventListener('keydown', event => {
+  if (event.key == 'ArrowLeft') {
+    const c = history.getCurrentOrNullAndMoveBack();
+    if (c) c.undo(chessboard);
+    else console.log('cannot undo');
+  } else if (event.key == 'ArrowRight') {
+    const c = history.advanceAndGetCurrentOrNull();
+    if (c) c.execute(chessboard);
+    else console.log('cannot redo');
+  } else if (event.key == ' ') {
+    const c = new MoveCommand(
+      ChessCoordinates.fromString('a1'),
+      ChessCoordinates.fromString('a5'),
+    );
+    c.execute(chessboard);
+    history.push(c);
+  }
+  console.log(history);
+});
