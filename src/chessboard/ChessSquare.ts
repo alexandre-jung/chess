@@ -8,46 +8,47 @@ export class ChessSquare {
   readonly #coordinates: ChessCoordinates;
   #piece: ChessPiece | null = null;
 
-  constructor (color: Color, coordinates: ChessCoordinates) {
+  constructor(color: Color, coordinates: ChessCoordinates) {
     this.#dropZone = new ChessDropZone({ size: 50 });
     this.#coordinates = coordinates;
-    this.element.style.backgroundColor = color == 'white' ? 'lightgray' : 'gray';
+    this.element.style.backgroundColor =
+      color == 'white' ? 'lightgray' : 'gray';
   }
 
-  get coordinates () {
+  get coordinates() {
     return this.#coordinates;
   }
 
-  get element () {
+  get element() {
     return this.#dropZone.element;
   }
 
-  get dropZone () {
+  get dropZone() {
     return this.#dropZone;
   }
 
-  get piece () {
+  get piece() {
     return this.#piece;
   }
 
-  set piece (piece: ChessPiece | null) {
+  set piece(piece: ChessPiece | null) {
     this.removePiece();
     this.setPieceElement(piece);
     this.#piece = piece;
     this.ensureChildParentIsSelf();
   }
 
-  private ensureChildParentIsSelf () {
+  private ensureChildParentIsSelf() {
     if (this.piece && this.piece.parent !== this) {
       this.piece.parent = this;
     }
   }
 
-  private setPieceElement (piece: ChessPiece | null) {
+  private setPieceElement(piece: ChessPiece | null) {
     if (piece) this.element.appendChild(piece.element);
   }
 
-  private removePiece () {
+  private removePiece() {
     const child = this.element.firstChild;
     if (child) child.remove();
   }

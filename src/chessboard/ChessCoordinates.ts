@@ -3,9 +3,9 @@ export class ChessCoordinates {
   #x = 0;
   #y = 0;
 
-  private constructor () {}
+  private constructor() {}
 
-  static fromIndexes (x: number, y: number) {
+  static fromIndexes(x: number, y: number) {
     if (x < 0 || x > 7 || y < 0 || y > 7) {
       throw RangeError('Invalid coordinates');
     }
@@ -16,36 +16,36 @@ export class ChessCoordinates {
     return c;
   }
 
-  static fromString (coords: string) {
+  static fromString(coords: string) {
     return ChessCoordinates.fromIndexes(
       coords[0].toLowerCase().charCodeAt(0) - 97,
-      8 - (Number.parseInt(coords[1], 10)),
+      8 - Number.parseInt(coords[1], 10)
     );
   }
 
   /**
    * The y coordinate, starting from top-left.
    */
-  get columnIndex () {
+  get columnIndex() {
     return this.#x;
   }
 
   /**
    * The x coordinate, starting from top-left.
    */
-  get rowIndex () {
+  get rowIndex() {
     return this.#y;
   }
 
-  get columnAsLetter () {
+  get columnAsLetter() {
     return String.fromCharCode(this.columnIndex + 97);
   }
 
-  get rowAsDigit () {
+  get rowAsDigit() {
     return 8 - this.rowIndex;
   }
 
-  toString () {
+  toString() {
     return `${this.columnAsLetter}${this.rowAsDigit}`;
   }
 }

@@ -7,17 +7,17 @@ export class ChessPiecePicker {
   #color: Color;
   #factory = new ChessPieceFactory(50);
 
-  constructor (color: Color) {
+  constructor(color: Color) {
     this.#color = color;
     this.element.style.display = 'flex';
 
-    PIECES.forEach(type => {
+    PIECES.forEach((type) => {
       const piece = this.#factory.createAndGet(this.#color, type);
       this.#element.appendChild(piece.element);
     });
   }
 
-  get element () {
+  get element() {
     return this.#element;
   }
 }

@@ -4,12 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "dev": "vite",
+    "format": "prettier --write src/ test/",
     "preview": "vite preview",
     "test": "vitest"
   },
   "devDependencies": {
+    "prettier": "^2.8.7",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
     "vitest": "^0.29.8"

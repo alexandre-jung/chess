@@ -2,48 +2,48 @@ import { Command } from './interfaces';
 
 export class ChessHistory {
   private readonly commands: Command[] = [];
-  private current = - 1;
+  private current = -1;
 
-  push (command: Command) {
+  push(command: Command) {
     this.discardAllEntriesAfterCurrent();
     this.commands.push(command);
     this.current = this.commands.length - 1;
   }
 
-  advanceAndGetCurrentOrNull () {
+  advanceAndGetCurrentOrNull() {
     if (this.isAtEnd) return null;
-    this.current ++;
+    this.current++;
     return this.getCurrentOrNull();
   }
 
-  getCurrentOrNullAndMoveBack () {
+  getCurrentOrNullAndMoveBack() {
     if (this.isAtBeginning) return null;
     const c = this.getCurrentOrNull();
-    this.current --;
+    this.current--;
     return c;
   }
 
-  getCurrentOrNull () {
+  getCurrentOrNull() {
     return this.commands.at(this.current) ?? null;
   }
 
-  private discardAllEntriesAfterCurrent () {
+  private discardAllEntriesAfterCurrent() {
     this.commands.splice(this.current + 1);
   }
 
-  get isEmpty () {
+  get isEmpty() {
     return this.commands.length == 0;
   }
 
-  get isAtBeginning () {
-    return this.current == - 1;
+  get isAtBeginning() {
+    return this.current == -1;
   }
 
-  get isAtEnd () {
+  get isAtEnd() {
     return this.current >= this.commands.length - 1;
   }
 
-  getAll () {
+  getAll() {
     return [...this.commands];
   }
 }

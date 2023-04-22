@@ -1,6 +1,11 @@
 import './style.css';
 
-import { ChessBoard, ChessCoordinates, ChessPieceFactory, ChessPiecePicker } from './chessboard';
+import {
+  ChessBoard,
+  ChessCoordinates,
+  ChessPieceFactory,
+  ChessPiecePicker,
+} from './chessboard';
 import { ChessHistory, MoveCommand } from './history';
 
 const app = document.querySelector('#app');
@@ -67,15 +72,17 @@ const moves = [
 const history = new ChessHistory();
 
 moves.forEach(([from, to]) => {
-  history.push(new MoveCommand(
-    ChessCoordinates.fromString(from),
-    ChessCoordinates.fromString(to),
-  ));
+  history.push(
+    new MoveCommand(
+      ChessCoordinates.fromString(from),
+      ChessCoordinates.fromString(to)
+    )
+  );
 });
 
-history.getAll().forEach(command => command.execute(chessboard));
+history.getAll().forEach((command) => command.execute(chessboard));
 
-document.addEventListener('keydown', event => {
+document.addEventListener('keydown', (event) => {
   if (event.key == 'ArrowLeft') {
     const c = history.getCurrentOrNullAndMoveBack();
     if (c) c.undo(chessboard);
@@ -87,7 +94,7 @@ document.addEventListener('keydown', event => {
   } else if (event.key == ' ') {
     const c = new MoveCommand(
       ChessCoordinates.fromString('a1'),
-      ChessCoordinates.fromString('a5'),
+      ChessCoordinates.fromString('a5')
     );
     c.execute(chessboard);
     history.push(c);

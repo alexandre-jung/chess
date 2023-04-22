@@ -1,11 +1,11 @@
 import { Color, Piece } from '../types';
 
 export type ChessDragAndDropDataObject = {
-  id: string
-  color: Color
-  piece: Piece
+  id: string;
+  color: Color;
+  piece: Piece;
   // from: string | null
-}
+};
 
 /**
  * A class to serialize and deserialize drag and drop data.
@@ -13,11 +13,7 @@ export type ChessDragAndDropDataObject = {
 export class ChessDragAndDropData {
   readonly #data: ChessDragAndDropDataObject;
 
-  constructor (
-    color: Color,
-    piece: Piece,
-    id: string,
-  ) {
+  constructor(color: Color, piece: Piece, id: string) {
     this.#data = {
       color,
       piece,
@@ -25,42 +21,43 @@ export class ChessDragAndDropData {
     };
   }
 
-  static fromString (data: string) {
+  static fromString(data: string) {
     const dataObject = JSON.parse(data);
     if (ChessDragAndDropData.isValidDataObject(dataObject)) {
       return new ChessDragAndDropData(
         dataObject.color,
         dataObject.piece,
-        dataObject.id,
+        dataObject.id
       );
     }
     throw new TypeError('Invalid data');
   }
 
-  static isValidDataObject (data: unknown): data is ChessDragAndDropDataObject {
+  static isValidDataObject(data: unknown): data is ChessDragAndDropDataObject {
     return (
-      !!data && typeof data == 'object' &&
+      !!data &&
+      typeof data == 'object' &&
       ('color' in data || 'piece' in data || 'id' in data)
     );
   }
 
-  toObject () {
+  toObject() {
     return { ...this.#data };
   }
 
-  toString () {
+  toString() {
     return JSON.stringify(this.#data);
   }
 
-  get color () {
+  get color() {
     return this.#data.color;
   }
 
-  get piece () {
+  get piece() {
     return this.#data.piece;
   }
 
-  get id () {
+  get id() {
     return this.#data.id;
   }
 }
