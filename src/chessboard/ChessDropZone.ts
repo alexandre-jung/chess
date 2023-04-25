@@ -1,5 +1,5 @@
 import { ChessDragAndDropData } from './ChessDragAndDropData';
-import EventListeners from '../EventListeners';
+import EventListeners from '../utils/EventListeners';
 
 type ChessDropZoneEventType = 'drop';
 type ChessDropZoneEvent = ChessDragAndDropData | string;

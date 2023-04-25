@@ -7,6 +7,7 @@ import {
   ChessPiecePicker,
 } from './chessboard';
 import { ChessHistory, MoveCommand } from './history';
+import { RobotPlayer } from './utils/RobotPlayer';
 
 const app = document.querySelector('#app');
 if (!app) throw new Error('#app not found');
@@ -82,6 +83,16 @@ moves.forEach(([from, to]) => {
 
 history.getAll().forEach((command) => command.execute(chessboard));
 
+function playGame() {
+  const player = new RobotPlayer(history, chessboard);
+  player.intervalInMs = 1000;
+  setTimeout(player.play, player.intervalInMs);
+}
+
+function rewindGame() {
+  history.getAll().forEach((command) => command.undo(chessboard));
+}
+
 document.addEventListener('keydown', (event) => {
   if (event.key == 'ArrowLeft') {
     const c = history.getCurrentOrNullAndMoveBack();
@@ -98,6 +109,11 @@ document.addEventListener('keydown', (event) => {
     );
     c.execute(chessboard);
     history.push(c);
+  } else if (event.key == 'Backspace') {
+    rewindGame();
+    history.rewind();
+  } else if (event.key == 'Enter') {
+    playGame();
   }
   console.log(history);
 });

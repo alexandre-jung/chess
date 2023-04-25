@@ -10,6 +10,10 @@ export class ChessHistory {
     this.current = this.commands.length - 1;
   }
 
+  rewind() {
+    this.current = -1;
+  }
+
   advanceAndGetCurrentOrNull() {
     if (this.isAtEnd) return null;
     this.current++;
@@ -29,10 +33,6 @@ export class ChessHistory {
 
   private discardAllEntriesAfterCurrent() {
     this.commands.splice(this.current + 1);
-  }
-
-  get isEmpty() {
-    return this.commands.length == 0;
   }
 
   get isAtBeginning() {
