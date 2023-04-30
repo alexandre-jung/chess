@@ -1,22 +1,25 @@
 import { ChessDragAndDropData } from './ChessDragAndDropData';
-import EventListeners from '../utils/EventListeners';
+import { EventListeners } from '../utils';
 
-type ChessDropZoneEventType = 'drop';
-type ChessDropZoneEvent = ChessDragAndDropData | string;
-type ChessDropZoneEventListener<Data extends ChessDropZoneEvent = any> = (
-  event: Data
-) => void;
+type ChessDropZoneEvents = {
+  drag: void;
+  drop: ChessDragAndDropData;
+};
 
 /**
  * An unstyled div that supports chess piece dropping.
  */
 export class ChessDropZone {
   #element = document.createElement('div');
-  #listeners = new EventListeners<ChessDropZoneEventType, ChessDropZoneEvent>();
+  #listeners = new EventListeners<ChessDropZoneEvents>();
 
   constructor({ size = 0 }: { size?: number } = {}) {
     this.size = size;
     this.setupEvents();
+  }
+
+  get listeners(): EventListeners<ChessDropZoneEvents> {
+    return this.#listeners;
   }
 
   get element() {
@@ -26,24 +29,6 @@ export class ChessDropZone {
   set size(size: number) {
     this.element.style.width = `${size}px`;
     this.element.style.height = `${size}px`;
-  }
-
-  addEventListener(
-    type: 'drop',
-    listener: ChessDropZoneEventListener<ChessDragAndDropData>
-  ): void;
-  addEventListener(
-    type: ChessDropZoneEventType,
-    listener: ChessDropZoneEventListener
-  ) {
-    this.#listeners.addAndGet(type, listener);
-  }
-
-  removeEventListener(
-    type: ChessDropZoneEventType,
-    listener: ChessDropZoneEventListener
-  ) {
-    this.#listeners.remove(type, listener);
   }
 
   private setupEvents() {
@@ -59,12 +44,7 @@ export class ChessDropZone {
     if (event.dataTransfer) {
       const dataAsString = event.dataTransfer.getData('text/plain');
       const data = ChessDragAndDropData.fromString(dataAsString);
-      this.dispatch('drop', data);
+      this.listeners.dispatch('drop', data);
     }
   };
-
-  private dispatch(type: 'drop', data: ChessDragAndDropData): void;
-  private dispatch(type: ChessDropZoneEventType, data: ChessDropZoneEvent) {
-    this.#listeners.dispatch(type, data);
-  }
 }

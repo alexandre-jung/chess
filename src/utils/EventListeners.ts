@@ -1,38 +1,48 @@
-export type TEventListener<TEvent = unknown> = (event: TEvent) => void;
+export class EventListeners<TNameEvent extends Record<string, unknown>> {
+  private listeners = new Map<
+    keyof TNameEvent,
+    Set<(event: TNameEvent[keyof TNameEvent]) => void>
+  >();
 
-export default class EventListeners<TEventType extends string, TEvent> {
-  #listeners = new Map<TEventType, Set<TEventListener<TEvent>>>();
-
-  add(type: TEventType, listener: TEventListener<TEvent>) {
-    const listeners = this.#listeners.get(type);
-    if (listeners) listeners.add(listener);
-    else {
-      this.#listeners.set(type, new Set([listener]));
+  add<TName extends keyof TNameEvent>(
+    name: TName,
+    listener: (event: TNameEvent[TName]) => void
+  ) {
+    const listeners = this.listeners.get(name);
+    if (listeners) {
+      listeners.add(listener as () => void);
+    } else {
+      const eventListeners = new Set([listener as () => void]);
+      this.listeners.set(name, eventListeners);
     }
   }
 
-  addAndGet(type: TEventType, listener: TEventListener<TEvent>) {
-    this.add(type, listener);
-    return listener;
-  }
-
-  remove(type: TEventType, listener: TEventListener<TEvent>) {
-    const listeners = this.#listeners.get(type);
+  remove<TName extends keyof TNameEvent>(
+    name: TName,
+    listener: (event: TNameEvent[TName]) => void
+  ) {
+    const listeners = this.listeners.get(name);
     if (listeners) {
-      listeners.delete(listener);
+      listeners.delete(listener as () => void);
       if (listeners.size == 0) {
-        this.clear(type);
+        this.clearEvent(name);
       }
     }
   }
 
-  dispatch(type: TEventType, data: TEvent) {
-    const listeners = this.#listeners.get(type);
+  dispatch<TName extends keyof TNameEvent>(
+    name: TName,
+    data: TNameEvent[TName]
+  ) {
+    const listeners = this.listeners.get(name);
     if (listeners) listeners.forEach((l) => l(data));
   }
 
-  clear(type?: TEventType) {
-    if (type) this.#listeners.delete(type);
-    else this.#listeners.clear();
+  clearEvent<TName extends keyof TNameEvent>(name: TName) {
+    this.listeners.delete(name);
+  }
+
+  clearAllEventListeners() {
+    this.listeners.clear();
   }
 }

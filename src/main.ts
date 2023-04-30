@@ -7,7 +7,7 @@ import {
   ChessPiecePicker,
 } from './chessboard';
 import { ChessHistory, MoveCommand } from './history';
-import { RobotPlayer } from './utils/RobotPlayer';
+import { RobotPlayer } from './utils';
 
 const app = document.querySelector('#app');
 if (!app) throw new Error('#app not found');

@@ -51,7 +51,7 @@ export class ChessBoard implements ChessBoardActor {
   private setupEvents() {
     this.#board.forEach((row) => {
       row.forEach((square) => {
-        square.dropZone.addEventListener('drop', (data) => {
+        square.dropZone.listeners.add('drop', (data) => {
           this.handleDrop(square, data);
         });
       });
